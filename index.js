@@ -17,24 +17,8 @@ app.use(express.json()); // Middleware
 // app es un objeto que tiene métodos, uno de ellos es get el cual recibe dos parámetros (ruta, callback)
 // * un callback es una función que se pasa por parámetro a otra función.
 
-// 3. Definimos una ruta y un callback (http://localhost:8080/)
-app.get('/', (req, res)=>{
-    res.send('<h1 style="color:white; background-color:#000000">Hola mundo!!</h1>');
-});
-
-app.post('/auth/register', (req, res)=>{
-
-    console.log(req.body)
-
-    res.send(req.body);
-})
-
-app.post('/auth/login', (req, res)=>{
-
-    console.log(req.body)
-
-    res.send(req.body);
-});
+// 3. Definimos las rutas de nuestra aplicación de forma agrupada
+app.use('/api/v1/users', require('./src/routes/user.routes'))
 
 const PORT = 8080; // PORT será una constante que contendrá el número de puerto en el que va a escuchar el servidor
 
