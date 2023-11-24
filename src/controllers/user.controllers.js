@@ -8,6 +8,8 @@ const bcrypt = require("bcryptjs");
 
 // importo mi función de encriptación
 const encryptPassword = require("../utils/bcrypt");
+// importo mi función de generación de token
+const { generateToken } = require("../utils/jwt");
 
 // creo mi controlador de usuarios
 const createUser = async (req, resp = response) => {
@@ -63,15 +65,16 @@ const loginUser = async (req, resp = response) => {
       });
     }
 
-    // 3. TODO: Generar el token
-
-
     // eliminar el password
     user.password = undefined;
+
+    // 3. TODO: Generar el token
+    const token = generateToken({ id: user._id, email: user.email } );
 
     return resp.status(200).json({
       ok: true,
       data: user,
+      token: token,
       message: "Usuario logueado correctamente",
     });
 
